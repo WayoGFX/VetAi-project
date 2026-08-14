@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Veterinario</title>
+    <link rel="stylesheet" href="../static/chatbot/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <img src="/static/images/imgSlide/slide2/slide1.png" alt="Slide 1">
+            <img src="/static/images/imgSlide/slide2/slide2.png" alt="Slide 2">
+            <img src="/static/images/imgSlide/slide2/slide5.png" alt="Slide 3">
+            <img src="/static/images/imgSlide/slide2/slide4.png" alt="Slide 4">
+            <img src="/static/images/imgSlide/slide2/slide3.png" alt="Slide 5">
+        </div>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            {% for message in chat_history %}
+            <div class="message {{ 'user' if message.sender == 'user' else 'bot' }}">
+                <img src="../static/chatbot/{{ message.avatar }}" alt="{{ message.sender }}">
+                <p>{{ message.text|safe }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <form method="POST"  action="/chatbot" class="input-box">
+            <input type="text" name="user_input" placeholder="Escribe aquí..." required>
+            <button type="submit" id="send-button">Enviar</button>
+        </form>
+
+        <form method="POST" class="options">
+            <button name="reset">Limpiar conversación</button>
+        </form>
+    </div>
+    <img src="/static/images/logo.png" alt="logo" class="logo">
+    <script>
+        // Desplazar automáticamente hacia abajo cuando se añaden nuevos mensajes
+        const chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight; // Desplazar hacia abajo
+
+        const sendButton = document.getElementById('send-button');
+
+        // Llama a esta función cuando se envía el formulario
+        document.querySelector('.input-box').onsubmit = function() {
+            sendButton.disabled = true; // Deshabilitar botón al enviar
+        };
+    </script>
+
+    <script>
+        let index = 0;
+        const slides = document.querySelectorAll('.slides img'); // Selecciona todas las imágenes
+        const totalSlides = slides.length;
+        
+        // Inicializa la primera imagen
+        slides[index].style.opacity = 1; // Muestra la primera imagen
+        
+        function showNextSlide() {
+            slides[index].style.opacity = 0; // Oculta la imagen actual
+            index = (index + 1) % totalSlides; // Calcula el índice de la siguiente imagen
+            slides[index].style.opacity = 1; // Muestra la siguiente imagen
+        }
+        
+        setInterval(showNextSlide, 3000); // Cambia cada 3 segundos
+    </script>
+</body>
+</html>

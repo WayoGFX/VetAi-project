@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+@import url('styleVet_ai.css');
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--blanco);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    animation: zoomIn 1s; /* Animación de zoom */
+}
+
+@keyframes zoomIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  canvas {
+    border-radius: 10px;
+  }
+
+/* Animación de entrada épica */
+@keyframes epicEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(-100vh) scale(0.5) rotate(-360deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(10vh) scale(1.2) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+}
+
+.imagen-principal {
+    max-width: 200px; /* Ajusta el tamaño según sea necesario */
+    margin-bottom: -40px;
+    color: var(--azul);
+}
+
+h1 {
+    color: var(--rojo);
+    margin: 0;
+    font-size: 150px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+.mensaje-azul {
+    color: var(--azul);
+    font-size: 20px;
+}
+
+.mensaje-gris {
+    color: var(--negro);
+    font-size: 15px;
+}
+
+.custom-button {
+    background-color: var(--negro);
+    border: 2px solid var(--rojo); 
+    color: var(--blanco); 
+    border-radius: 9999px; 
+    padding: 0.6rem 1.3rem; 
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.1s;
+    cursor: pointer;
+}
+
+.custom-button i {
+    margin-right: 0.5rem;
+}
+
+.custom-button:active {
+    background-color: var(--rojo); 
+    color: var(--blanco);
+    border-color: var(--grisClaro);
+    transform: scale(0.9); 
+}
+
+.custom-button {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.imagen-pequeña {
+    max-width: 100px; /* Tamaño pequeño */
+    margin: 20px 0;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Propietario</title>
+    <link rel="stylesheet" href="/static/css/styleExp.css">
+    <script src="/static/js/script.js" defer></script>
+</head>
+<body>
+    <h1>Expediente de Propietario</h1>
+    <p>Complete los campos para almacenar su información</p>
+    
+    <form action="/uploadProp" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="dui">DUI</label>
+            <input type="text" id="dui" name="dui" pattern="^\d{8}-\d{1}$" required maxlength="10" placeholder="Ej: 584927485-9" />
+        </div>
+        <br><hr>
+        <div>
+            <label for="nombreProp">Nombre Completo</label> <br>
+            <input type="text" id="nombreProp" name="nombreProp" required>
+            <button type="button" onclick="reconocerVoz('nombreProp')">🔊</button>
+        </div>
+        <br><hr>
+        <div>
+            <label for="imageProp">Foto del propietario</label> <br>
+            <input type="file" name="imageProp" required>
+        </div>
+        <br><hr>
+        <div>
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" maxlength="8" required placeholder="Ej: 12345678" />
+        </div>
+        <br><hr>
+        <div>
+            <label for="direccion">Dirección</label> <br>
+            <input type="text" id="direccion" name="direccion" required>
+            <button type="button" onclick="reconocerVoz('direccion')">🔊</button>
+        </div>
+        <br><hr>
+        <div>
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required>
+        </div>
+        <br><hr>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

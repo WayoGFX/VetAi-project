@@ -1,0 +1,169 @@
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+    @import url('styleVet_ai.css');
+
+    canvas {
+      border-radius: 10px;
+    }
+  
+  .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1; /* Asegura que el slider esté en el fondo */
+  }
+  
+  .slides {
+      display: flex;
+      transition: opacity 1s ease-in-out;
+  }
+  
+  .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      position: absolute; /* Para superponer las imágenes */
+      transition: opacity 1s ease-in-out;
+  }
+  
+  
+  
+  .slides img:first-child {
+      opacity: 1; /* Mostrar la primera imagen */
+  }
+  
+  .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #363636ce; /* Fondo blanco semitransparente */
+      z-index: 0; /* Asegura que la capa de fondo esté encima del slider */
+  }
+  
+/* DISEÑO DE LOGO ----------------*/
+.logo {
+  position: fixed; /* Fija la imagen en la parte superior derecha */
+  top: 73px; /* Margen superior */
+  right: 105px; /* Margen derecho */
+  width: 130px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Mantiene la proporción */
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+/*---------------------------------------*/
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      gap: 20px;
+    }
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .card {
+      border-radius: 35px;
+      padding: 25px 10px;
+      text-align: center;
+      color: var(--blanco);
+      width: 230px;
+      position: relative;
+    }
+    .card img {
+      width: 80%;
+      border-radius: 15px;
+    }
+    .card h2 {
+      margin: 10px 0;
+      font-size: 24px;
+    }
+    .card p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .main-card {
+      border-radius: 35px;
+      padding: 40px;
+      text-align: center;
+      color: var(--blanco);
+      width: 280px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .main-card h2 {
+      font-weight: bold;
+      color: var(--blanco);
+      font-size: 36px;
+      margin: 10px 0;
+      margin-bottom: 20px;
+    }
+    .main-card img {
+      width: 60%;
+      border-radius: 15px;
+    }
+    .main-card p {
+      color: var(--negro);
+      font-size: 15px;
+      margin: 10px 0;
+    }
+    .main-card button {
+      background-color: var(--negro);
+      color: var(--blanco);
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 175px;
+    }
+    .main-card button:hover {
+      background-color: var(--negro);
+    }
+    .text-above {
+      font-size: 14px;
+      color: var(--negro);
+      margin-bottom: 10px;
+    }
+    .text-below {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 768px) {
+      .container, .card-container {
+        flex-direction: column; /* Cambia el diseño a vertical */
+        gap: 30px; /* Aumenta el espacio entre tarjetas */
+        align-items: center;
+      }
+      .card, .main-card {
+        width: 90%; /* Asegura que las tarjetas ocupen casi todo el ancho */
+        max-width: 350px; /* Define un límite de ancho para evitar que se expandan demasiado */
+      }
+    }

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño expediente</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+    <link rel="stylesheet" href="/static/css/styleExp.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/script.js" defer></script>
+    <script src="/static/js/hablar.js"></script>
+    <script src="/static/js/tesseract.min.js"></script>
+    <script src="/static/js/duiDetector.js" defer></script>
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <img src="/static/images/imgSlide/slide4/slide1.png" alt="Slide 1">
+            <img src="/static/images/imgSlide/slide4/slide2.png" alt="Slide 2">
+            <img src="/static/images/imgSlide/slide4/slide5.png" alt="Slide 3">
+            <img src="/static/images/imgSlide/slide4/slide4.png" alt="Slide 4">
+            <img src="/static/images/imgSlide/slide4/slide3.png" alt="Slide 5">
+        </div>
+        <div class="overlay"></div>
+    </div>
+    
+    <form action="/uploadExp" method="post" enctype="multipart/form-data">
+        <div class="sidebar">
+            <div class="title">
+                <h1>Expediente de<br><span class="textUp">mascota</span></h1>
+                <p>Completa todos los campos</p>
+            </div>
+            <div class="button-container">
+                <button class="icon-button" role="button" type="button" onclick="hablarInformacion()">Hablar expediente</button>
+                <button class="hablar-button" role="button" type="button" onclick="detenerHablar()">Detener</button>
+            </div>
+            
+            <!--    APARTADO DE DIV DE CONTENIDO -->
+
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/documento.gif" alt="Icono" class="icon">
+                <h2 class="opcionTitle" for="duiExp">DUI Propietario</h2>
+            
+                <video id="video" width="300" height="200" autoplay></video>
+                <br>
+                <button id="toggleCamera" class="hablar-button" type="button">Encender cámara</button>
+                <button id="capture" class="hablar-button" type="button">Capturar</button>
+                <canvas id="canvas" style="display:none;"></canvas>
+                <input type="text" id="duiExp" name="duiExp" class="input" placeholder="Escanea tu número de DUI" pattern="^\d{8}-\d{1}$" required maxlength="10">
+                <div id="progress" style="display:none;">
+                    <div id="progress-bar"></div>
+                </div>
+                <div id="notification"></div>
+                <button class="hablar-button" type="button" onclick="hablarCampo('duiExp', 'Dui del propietario')">Hablar</button>
+            </div>
+
+
+            <div class="container-opcion">
+                <img src="/static/images/imgExp/beagle.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="nombreMascota">Nombre de la mascota</h2>
+                <input type="text" id="nombreMascota" name="nombreMascota" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('nombreMascota')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('nombreMascota', 'Nombre de la mascota')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="/static/images/imgExp/sexo.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="sexo">Sexo de la mascota</h2>
+                <input type="hidden" id="sexo" name="sexo" required>
+                <p id="resultadoSexo">¿Macho o Hembra?</p>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVozSexo('sexo')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('sexo', 'Sexo de la mascota')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/tipo.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="especie">Especie de la mascota</h2>
+                <input type="hidden" id="especie" name="especie" required>
+                <p id="resultadoEspecie">¿Canino o Felino?</p>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVozEspecie('especie')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('especie', 'Especie de la mascota')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/raza.gif" alt="Esterilizado" class="icon">
+                <h2 class="opcionTitle" for="raza">Tipo de raza</h2>
+                <select id="raza" name="raza" required class="select-custom">
+                    <option value="">Seleccione una raza...</option>
+                </select>
+                <div class="button-container">
+                    <button type="button" class="hablar-button" onclick="hablarCampo('raza', 'Tipo de raza')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/edad.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="edad">Edad</h2>
+                <input type="text" id="edad" name="edad" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('edad')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('edad', 'Edad')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/los-grandes-pirineos.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="detalles">Detalles de la mascota</h2>
+                <input type="text" id="detalles" name="detalles" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('detalles')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('detalles', 'Detalles de la mascota')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgProp/camera.gif" alt="Icono" class="icon">
+                <h2 class="opcionTitle">Foto de mascota</h2>
+                
+                <!-- Contenedor para la previsualización -->
+                <img id="previewImage" src="/imgExp/Fondo.jpg" alt="foto ingresada" class="image-preview">
+                
+                <!-- Input para subir una imagen -->
+                <input type="file" id="imageMascota" name="imageMascota" required class="inputIMG" accept="image/*">
+                <label for="imageMascota" class="custom-file-upload">Seleccionar archivo</label>
+                
+                <!-- Botones para manejar la cámara -->
+                <button type="button" id="openCamera" class="custom-file-upload">Abrir Cámara</button>
+                <button type="button" id="stopCamera" class="custom-file-upload" style="display: none;">Apagar Cámara</button>
+                
+                <!-- Contenedor para la vista de la cámara -->
+                <div id="cameraContainer" style="display:none;">
+                    <video id="cameraStream" autoplay class="image-preview"></video>
+                    <button id="capturePhoto" class="custom-file-upload">Tomar Foto</button>
+                </div>
+            </div>
+
+            <script>
+                const imageInput = document.getElementById('imageMascota');
+                const previewImage = document.getElementById('previewImage');
+                const openCameraButton = document.getElementById('openCamera');
+                const stopCameraButton = document.getElementById('stopCamera');
+                const cameraContainer = document.getElementById('cameraContainer');
+                const cameraStream = document.getElementById('cameraStream');
+                const capturePhotoButton = document.getElementById('capturePhoto');
+                
+                let videoStream;
+                
+                // Previsualización de la imagen subida
+                imageInput.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImage.src = e.target.result;
+                            imageInput.required = true; // Rehabilita la validación en caso de subir archivo
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        previewImage.src = '/path/to/default-image.jpg';
+                    }
+                });
+                
+                // Abrir la cámara
+                openCameraButton.addEventListener('click', async function(event) {
+                    event.preventDefault(); // Evita la validación del campo requerido
+                    cameraContainer.style.display = 'block';
+                    stopCameraButton.style.display = 'inline-block'; // Mostrar botón de apagar cámara
+                    try {
+                        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                        cameraStream.srcObject = videoStream;
+                    } catch (error) {
+                        console.error('Error al acceder a la cámara:', error);
+                        alert('No se pudo acceder a la cámara.');
+                    }
+                });
+                
+                // Capturar foto desde la cámara
+                capturePhotoButton.addEventListener('click', function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = cameraStream.videoWidth;
+                    canvas.height = cameraStream.videoHeight;
+                    const context = canvas.getContext('2d');
+                    context.drawImage(cameraStream, 0, 0, canvas.width, canvas.height);
+                    const dataURL = canvas.toDataURL('image/png');
+                    
+                    // Actualizar la previsualización
+                    previewImage.src = dataURL;
+
+                    // Convertir el dataURL a un Blob y asignarlo al input
+                    const blob = dataURLToBlob(dataURL);
+                    const file = new File([blob], 'captured-image.png', { type: 'image/png' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    imageInput.files = dataTransfer.files;
+
+                    imageInput.required = false; // Deshabilita la validación de imagen al capturar desde la cámara
+                    stopCamera(); // Detener la cámara después de capturar la foto
+                });
+                
+                // Apagar la cámara
+                stopCameraButton.addEventListener('click', function() {
+                    stopCamera();
+                });
+                
+                function stopCamera() {
+                    if (videoStream) {
+                        videoStream.getTracks().forEach(track => track.stop());
+                        videoStream = null;
+                    }
+                    cameraContainer.style.display = 'none';
+                    stopCameraButton.style.display = 'none';
+                }
+
+                function dataURLToBlob(dataURL) {
+                    const byteString = atob(dataURL.split(',')[1]);
+                    const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+                    return new Blob([ab], { type: mimeString });
+                }
+            </script>
+            
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/peso.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="peso">Peso de la mascota</h2>
+                <input type="text" id="peso" name="peso" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('peso')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('peso', 'Peso de la mascota')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/adn.gif" alt="Icono" class="icon">
+                <h2 class="opcionTitle" for="enfermedades">Enfermedades</h2>
+                <label>
+                    <input type="checkbox" id="enfermedades" name="enfermedades" value="Parvovirus">
+                    Parvovirus
+                </label><br>
+                <label>
+                    <input type="checkbox" id="enfermedades" name="enfermedades" value="Moquillo">
+                    Moquillo
+                </label><br>
+                <label>
+                    <input type="checkbox" id="enfermedades" name="enfermedades" value="Leptospirosis">
+                    Leptospirosis
+                </label><br>
+                <label>
+                    <input type="checkbox" id="enfermedades" name="enfermedades" value="Hepatitis">
+                    Hepatitis
+                </label><br>
+                <label>
+                    <input type="checkbox" id="enfermedades" name="enfermedades" value="Virus de Inmunodeficiencia">
+                    Virus de Inmunodeficiencia
+                </label><br><br>
+                <button class="hablar-button" type="button" onclick="hablarCampoCheck('enfermedades', 'Enfermedades')">Hablar</button>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/altura.gif" alt="Esterilizado" class="icon">
+                <h2 class="opcionTitle" for="esterilizado">Esterilizado</h2>
+                <select id="esterilizado" name="esterilizado" required class="select-custom">
+                    <option value="">Seleccione una opción...</option>
+                    <option value="No">No</option>
+                    <option value="Si">Si</option>
+                </select>
+                <div class="button-container">
+                    <button type="button" class="hablar-button" onclick="hablarCampo('esterilizado', 'Esterilizado')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/vacuna.gif" alt="Icono" class="icon">
+                <h2 class="opcionTitle" for="vacunas">Vacunas</h2>
+                <label>
+                    <input type="checkbox" id="vacunas" name="vacunas" value="Rabia">
+                    Rabia
+                </label><br>
+                <label>
+                    <input type="checkbox" id="vacunas" name="vacunas" value="Distemper">
+                    Distemper
+                </label><br>
+                <label>
+                    <input type="checkbox" id="vacunas" name="vacunas" value="Parvovirus">
+                    Parvovirus
+                </label><br>
+                <label>
+                    <input type="checkbox" id="vacunas" name="vacunas" value="Hepatitis">
+                    Hepatitis
+                </label><br>
+                <label>
+                    <input type="checkbox" id="vacunas" name="vacunas" value="Leptospirosis">
+                    Leptospirosis
+                </label><br><br>
+                <button class="hablar-button" type="button" onclick="hablarCampoCheck('vacunas', 'Vacunas')">Hablar</button>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/historial-medico.gif" alt="Icono" class="icon">
+                <h2 class="opcionTitle" for="examenes">Exámenes</h2>
+                <label>
+                    <input type="checkbox" id="examenes" name="examenes" value="VIH">
+                    VIH
+                </label><br>
+                <label>
+                    <input type="checkbox" id="examenes" name="examenes" value="Hemograma (Sangre)">
+                    Hemograma (Sangre)
+                </label><br>
+                <label>
+                    <input type="checkbox" id="examenes" name="examenes" value="Análisis de Orina">
+                    Análisis de Orina
+                </label><br>
+                <label>
+                    <input type="checkbox" id="examenes" name="examenes" value="Análisis de Heces">
+                    Análisis de Heces
+                </label><br>
+                <label>
+                    <input type="checkbox" id="examenes" name="examenes" value="Prueba de Parvovirus">
+                    Prueba de Parvovirus
+                </label><br><br>
+                <button class="hablar-button" type="button" onclick="hablarCampoCheck('examenes', 'Exámenes')">Hablar</button>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/informe.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="observacionexamenes">Observación de Historial</h2>
+                <input type="text" id="observacionexamenes" name="observacionexamenes" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('observacionexamenes')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('observacionexamenes', 'Observacion de historial')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/transmision-del-virus.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="desparacitaciones">Desparacitaciones</h2>
+                <input type="text" id="desparacitaciones" name="desparacitaciones" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('desparacitaciones')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('desparacitaciones', 'Desparacitaciones')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/calendario.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="ultcita">Última Cita</h2>
+                <input type="text" id="ultcita" name="ultcita" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('ultcita')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('ultcita', 'Ultima cita')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/revision.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="descultcita">Descripción de Última Cita</h2>
+                <input type="text" id="descultcita" name="descultcita" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('descultcita')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('descultcita', 'Descripcion de Ultima cita')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/cita.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="proxcita">Próxima Cita</h2>
+                <input type="text" id="proxcita" name="proxcita" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('proxcita')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('proxcita', 'Proxima cita')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/notas_proxima_cita.gif" alt="Imagen de la mascota" class="icon">
+                <h2 class="opcionTitle" for="descproxcita">Descripción de Próxima Cita</h2>
+                <input type="text" id="descproxcita" name="descproxcita" class="input" placeholder="Ingrese un nombre" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('descproxcita')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('descproxcita', 'Descripcion de Proxima cita')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgExp/veterinario.gif" alt="Esterilizado" class="icon">
+                <h2 class="opcionTitle" for="veterinario">Veterinario encargado</h2>
+                <select id="veterinario" name="veterinario" required class="select-custom">
+                    <option value="">Seleccione un veterinario...</option>
+                    <option value="Eduardo Enrique Rodríguez Rodríguez">Eduardo Enrique Rodríguez Rodríguez</option>
+                    <option value="Hamilton Israel Aguirre Méndez">Hamilton Israel Aguirre Méndez</option>
+                    <option value="José Jaime Marroquín Sánchez">José Jaime Marroquín Sánchez</option>
+                    <option value="Andy Elí Torres Chávez">Andy Elí Torres Chávez</option>
+                </select>
+                <div class="button-container">
+                    <button type="button" class="hablar-button" onclick="hablarCampo('veterinario', 'veterinario encargado')">Hablar</button>
+                </div>
+            </div>
+            <br><br>
+            <div class="button-container">
+                <button class="hablar-button" type="submit">Enviar</button>
+            </div>
+            <br><br>
+        </div>
+    </form>
+        <img src="/static/images/imgExp/logo.png" alt="logo" class="logo">
+        <script>
+            let index = 0;
+            const slides = document.querySelectorAll('.slides img'); // Selecciona todas las imágenes
+            const totalSlides = slides.length;
+            
+            // Inicializa la primera imagen
+            slides[index].style.opacity = 1; // Muestra la primera imagen
+            
+            function showNextSlide() {
+                slides[index].style.opacity = 0; // Oculta la imagen actual
+                index = (index + 1) % totalSlides; // Calcula el índice de la siguiente imagen
+                slides[index].style.opacity = 1; // Muestra la siguiente imagen
+            }
+            
+            setInterval(showNextSlide, 3000); // Cambia cada 3 segundos
+            </script>
+</body>
+</html>

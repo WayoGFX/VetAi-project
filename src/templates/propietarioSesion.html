@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SESION PROPIETARIO</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+    <link rel="stylesheet" href="/static/css/styleSesion.css">
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <img src="/static/images/imgSlide/slide2/slide1.png" alt="Slide 1">
+            <img src="/static/images/imgSlide/slide2/slide2.png" alt="Slide 2">
+            <img src="/static/images/imgSlide/slide2/slide5.png" alt="Slide 3">
+            <img src="/static/images/imgSlide/slide2/slide4.png" alt="Slide 4">
+            <img src="/static/images/imgSlide/slide2/slide3.png" alt="Slide 5">
+        </div>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="content">
+        <img src="../static/images/imgScanner/logo.png" alt="Imagen Principal" class="imagen-principal">
+        <h1>Bienvenido!</h1>
+        <p class="mensaje-azul">¿Ya estás registrado?</p>
+        
+        <div class="button-container">
+            <form action="/addExp" method="post">
+                <button type="submit" class="custom-button yes-button">Sí, estoy registrado</button>
+            </form>
+            <form action="/addProp" method="post">
+                <button type="submit" class="custom-button no-button">Crear nuevo propietario</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let index = 0;
+        const slides = document.querySelectorAll('.slides img');
+        const totalSlides = slides.length;
+
+        function showNextSlide() {
+            slides[index].style.opacity = 0; // Ocultar la imagen actual
+            index = (index + 1) % totalSlides; // Incrementar el índice
+            slides[index].style.opacity = 1; // Mostrar la siguiente imagen
+        }
+
+        setInterval(showNextSlide, 3000); // Cambiar cada 3 segundos
+    </script>
+
+</body>
+</html>

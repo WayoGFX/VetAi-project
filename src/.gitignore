@@ -1,0 +1,27 @@
+# Variables de entorno
+.env
+
+# Entorno virtual
+env/
+venv/
+*.venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+
+# Archivos de sistema
+desktop.ini
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Uploads locales
+src/static/qr/*
+!src/static/qr/.gitkeep
+uploads/

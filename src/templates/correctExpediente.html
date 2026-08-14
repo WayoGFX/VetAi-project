@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INFORMACION AGREGADA</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+  <link rel="stylesheet" href="../static/css/stylecorrect.css">
+  <link rel="stylesheet" href="../static/css/{{colorCSS}}">
+</head>
+<body>
+  <div class="slider">
+    <div class="slides">
+        <img src="/static/images/imgSlide/slide2/slide1.png" alt="Slide 1">
+        <img src="/static/images/imgSlide/slide2/slide2.png" alt="Slide 2">
+        <img src="/static/images/imgSlide/slide2/slide5.png" alt="Slide 3">
+        <img src="/static/images/imgSlide/slide2/slide4.png" alt="Slide 4">
+        <img src="/static/images/imgSlide/slide2/slide3.png" alt="Slide 5">
+    </div>
+    <div class="overlay"></div>
+</div>
+
+
+  <div class="container">
+    <div class="card-container">
+      <p class="text-above">Este es tu QR</p>
+      <div class="card">
+        <img src="{{ url_for('static', filename='qr/qrVetAI_' + id + '.png') }}" alt="Código QR" width="200"/>
+      </div>
+      <p class="text-below">Con el podrás ingresar a tu expediente</p>
+    </div>
+    <div class="main-card">
+      <img src="../static/images/imgScanner/logo.png" alt="Logo">
+      <p>¡Felicidades! su mascota:</p>
+      <h2>"{{mascota}}"</h2>
+      <p>ha sido ingresado con <br>éxito</p>
+      <form action="/addExp" method="post">
+        <button>Ingresar otro</button>
+      </form>
+      <form action="/menu" method="post">
+        <button>Continuar</button>
+      </form>
+    </div>
+    <div class="card-container">
+      <p class="text-above">Esta es tu foto</p>
+      <div class="card">
+        <img src="{{ image_base64 }}" alt="Foto de mascota" width="200"/>
+      </div>
+      <p class="text-below">Puedes verificar tus datos en tu expediente</p>
+    </div>
+  </div>
+  <img src="/static/images/logo.png" alt="logo" class="logo">
+  <script>
+    let index = 0;
+    const slides = document.querySelectorAll('.slides img');
+    const totalSlides = slides.length;
+
+    function showNextSlide() {
+        slides[index].style.opacity = 0; // Ocultar la imagen actual
+        index = (index + 1) % totalSlides; // Incrementar el índice
+        slides[index].style.opacity = 1; // Mostrar la siguiente imagen
+    }
+
+    setInterval(showNextSlide, 3000); // Cambiar cada 3 segundos
+</script>
+</body>
+</html>
+

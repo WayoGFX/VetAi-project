@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('styleVet_ai.css');
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    overflow: hidden; /* Evitar el desbordamiento */
+    animation: zoomIn 2s; /* Animación de zoom */
+}
+
+@keyframes zoomIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  canvas {
+    border-radius: 10px;
+  }
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1; /* Asegura que el slider esté en el fondo */
+}
+
+.slides {
+    display: flex;
+    transition: opacity 1s ease-in-out;
+}
+
+.slides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    position: absolute; /* Para superponer las imágenes */
+    transition: opacity 1s ease-in-out;
+}
+
+
+
+.slides img:first-child {
+    opacity: 1; /* Mostrar la primera imagen */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f1e7ce; /* Fondo blanco semitransparente */
+    z-index: 2; /* Asegura que la capa de fondo esté encima del slider */
+}
+
+.content {
+    position: relative;
+    z-index: 3; /* Asegura que el contenido esté encima de la capa de fondo */
+    text-align: center; /* Centra el texto */
+}
+
+.small-text {
+    color: var(--rojo);
+    margin: 20px 0 5px; /* Margen ajustado */
+}
+
+h1 {
+    color: var(--rojo);
+    margin: 0;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+p {
+    margin: 10px 0;
+}
+
+.mensaje-azul {
+    color: var(--azul);
+    font-size: 15px;
+}
+
+.imagen-principal {
+    max-width: 220px; /* Ajusta el tamaño según sea necesario */
+    margin: 20px 0;
+    padding-top: 200px;
+    padding-bottom: 230px;
+}
+
+.custom-button {
+    background-color: var(--negro);
+    border: 2px solid var(--rojo);
+    color: var(--blanco);
+    border-radius: 9999px;
+    padding: 0.6rem 1.3rem;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.1s;
+    cursor: pointer;
+}
+
+.custom-button:active {
+    background-color: var(--rojo);
+    color: var(--blanco);
+    border-color: var(--grisClaro);
+    transform: scale(0.9);
+}

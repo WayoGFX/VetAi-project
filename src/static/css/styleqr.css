@@ -1,0 +1,191 @@
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+    @import url('styleVet_ai.css');
+
+    body {
+      background-color: var(--blanco);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      animation: zoomIn 1s; /* Animación de zoom */
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    canvas {
+      border-radius: 10px;
+    }
+
+    .container {
+      background-color: var(--rojo);
+      width: 375px;
+      height: 490px;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+.logo {
+    width: 100%;
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.logo img {
+margin-bottom: -50px;
+    width: 200px; 
+    height: auto;
+}
+
+.logo p {
+    margin-top: 20px;
+    font-size: 14px;
+    margin-bottom: -37px;
+    color: var(--negro);
+}
+
+    .scanner {
+      background-color: var(--blanco);
+      width: 300px;
+      height: 300px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 32px 0;
+    }
+
+    .scanner img {
+      width: 75px;
+      height: 75px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+      margin-bottom: 15px;
+    }
+
+    .buttons button {
+      width: 140px;
+      height: 30px;
+      border: none;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--blanco);
+      cursor: pointer;
+      margin-bottom: -20px;
+    }
+
+    .buttons .start {
+      background-color: var(--azul);
+    }
+
+    .buttons .start:hover {
+      background-color: var(--azulFuerte);
+      transition: 0.5s;
+    }
+
+    .buttons .stop {
+      background-color: var(--amarillo);
+    }
+
+    .buttons .stop:hover {
+      background-color: var(--grisClaro);
+      transition: 0.5s;
+    }
+
+    .submit {
+      background-color: var(--negro); 
+      width: 140px;
+      height: 30px;
+      border: none;
+      border-radius: 25px; 
+      font-size: 12px;
+      color: var(--blanco);
+      cursor: pointer;
+    }
+
+    .submit:hover {
+      background-color: var(--blanco); 
+      width: 140px;
+      height: 30px;
+      border: none;
+      border-radius: 25px; 
+      font-size: 12px;
+      color: var(--negro);
+      cursor: pointer;
+    }
+
+
+    /* DISEÑO DE LOGO ----------------*/
+.logoVet {
+  position: fixed; /* Fija la imagen en la parte superior derecha */
+  top: 73px; /* Margen superior */
+  right: 105px; /* Margen derecho */
+  width: 130px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Mantiene la proporción */
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+/*---------------------------------------*/
+
+canvas {
+  border-radius: 10px;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* Asegura que el slider esté en el fondo */
+}
+
+.slides {
+  display: flex;
+  transition: opacity 1s ease-in-out;
+}
+
+.slides img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  position: absolute; /* Para superponer las imágenes */
+  transition: opacity 1s ease-in-out;
+}
+
+
+
+.slides img:first-child {
+  opacity: 1; /* Mostrar la primera imagen */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f1e7ce; /* Fondo blanco semitransparente */
+  z-index: 0; /* Asegura que la capa de fondo esté encima del slider */
+}
+
+

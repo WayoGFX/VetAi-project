@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expedientes de Mascotas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Expedientes de Mascotas</h1>
+        <div class="row">
+            {% for mascota in mascotas %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ mascota.foto_mascota }}" class="card-img-top" alt="Foto de {{ mascota.nombre_mascota }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ mascota.nombre_mascota }}</h5>
+                        <p class="card-text">Especie: {{ mascota.especie }}</p>
+                        <p class="card-text">Raza: {{ mascota.raza }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

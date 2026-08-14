@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+    <link rel="stylesheet" href="/static/css/styleMenu.css">
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <img src="/static/images/imgSlide/slide3/slide1.png" alt="Slide 1">
+            <img src="/static/images/imgSlide/slide3/slide2.png" alt="Slide 2">
+            <img src="/static/images/imgSlide/slide3/slide5.png" alt="Slide 3">
+            <img src="/static/images/imgSlide/slide3/slide4.png" alt="Slide 4">
+            <img src="/static/images/imgSlide/slide3/slide3.png" alt="Slide 5">
+        </div>
+        <div class="overlay"></div>
+    </div>
+    <div class="container">
+        <aside class="left-section" aria-label="Opciones de la aplicación">
+            <h1 class="uno">¿Qué desea<br><span class="Redtext">hacer?</span></h1>
+            <p>¿Qué opción quieres realizar?</p>
+            
+            <div class="option">
+            <form action="/propSesion" method="post">
+                    <h2>Nuevo Expediente</h2>
+                    <img src="/static/images/imgMenu/beagle.gif" alt="" width="63" height="63">
+                    <p>Si aún no has ingresado a tu mascota puedes hacerlo aquí completando el expediente.</p>
+                    <button class="custom-button" type="submit">Ingresar Mascota</button>
+                </form>
+            </div>
+            <div class="option">
+                <form action="/scannerExp" method="post">
+                    <h2 style="color:#384ea1;">Visitar Expediente</h2>
+                    <img src="/static/images/imgMenu/revision.gif" alt="" width="63" height="63">
+                    <p>Si ya estás registrado tu mascota puedes acceder a su expediente y verificar datos importantes.</p>
+                    <button class="custom-button2" type="submit">Revisar Expediente</button>
+                </form>
+            </div>
+        </aside>
+        <main class="right-section" role="img" aria-label="Fondo decorativo"></main>
+    </div>
+    <img src="/static/images/imgExp/logo.png" alt="logo" class="logo">
+    <script>
+        let index = 0;
+        const slides = document.querySelectorAll('.slides img'); // Selecciona todas las imágenes
+        const totalSlides = slides.length;
+        
+        // Inicializa la primera imagen
+        slides[index].style.opacity = 1; // Muestra la primera imagen
+        
+        function showNextSlide() {
+            slides[index].style.opacity = 0; // Oculta la imagen actual
+            index = (index + 1) % totalSlides; // Calcula el índice de la siguiente imagen
+            slides[index].style.opacity = 1; // Muestra la siguiente imagen
+        }
+        
+        setInterval(showNextSlide, 3000); // Cambia cada 3 segundos
+        </script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+h1{
+    text-align: center;
+}
+
+
+/* Estilo para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 18px;
+    height: 18px; /* Para el scroll horizontal */
+    background: linear-gradient(45deg, #ff0066, #0099ff); /* Fondo dinámico de color */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease-in-out;
+}
+
+/* Estilo para el track de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+    background: #f5faff;
+    border-radius: 15px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out;
+}
+
+/* Estilo para el pulgar (thumb) de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #ff0066, #6a00ff, #0099ff);
+    border-radius: 15px;
+    border: 3px solid #fff; /* Borde blanco más grueso para un efecto más limpio */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Efecto animado cuando el usuario pasa el ratón sobre el pulgar */
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ff0066, #ff4d99, #0099ff); /* Cambio de gradiente para destacar */
+    transform: scale(1.15); /* Aumento sutil en el tamaño */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Efecto al deslizar la barra de desplazamiento */
+::-webkit-scrollbar:active {
+    background: #ff00cc; /* Cambiar a un color intenso al hacer clic */
+    transform: scale(0.95);
+}
+
+/* Efecto de animación suave en el track al desplazarse */
+::-webkit-scrollbar-track:hover {
+    background: #e0f7ff;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+}
+
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column; /* Cambia a columna para pantallas pequeñas */
+}
+
+.left-section {
+    background-color: #ee6543;
+    color: white;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    min-width: 250px;
+    overflow-y: auto;
+}
+
+.left-section h1 {
+    font-size: 1.5rem;
+}
+
+.left-section p {
+    font-size: 0.9rem;
+}
+
+.option {
+    background-color: white;
+    color: #000;
+    padding: 25px;
+    border-radius: 38px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.custom-button {
+    background-color: transparent;
+    border: 2px solid #ee6543; 
+    color: #ee6543; 
+    border-radius: 9999px; 
+    padding: 0.6rem 1.3rem; 
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.1s;
+    cursor: pointer;
+}
+
+  /* Estilo general */
+  select {
+    background: linear-gradient(145deg, #292728, #384ea1); /* Gradiente de negro a azul */
+    color: #f9f2e8; /* Texto blanco suave */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 18px; /* Relleno moderado */
+    border: 2px solid #ee6543; /* Borde rojo */
+    border-radius: 25px; /* Bordes más redondeados */
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(238, 101, 67, 0.7), 0 0 16px rgba(238, 101, 67, 0.3); /* Sombra suave de color rojo */
+    appearance: none; /* Eliminar la flecha predeterminada del select */
+  }
+
+  /* Efecto de hover */
+  select:hover {
+    background: linear-gradient(145deg, #384ea1, #292728); /* Invertir gradiente al pasar el mouse */
+    border-color: #f8ae35; /* Borde amarillo */
+    box-shadow: 0 0 18px rgba(248, 174, 53, 0.7), 0 0 28px rgba(248, 174, 53, 0.4); /* Efecto de neón amarillo */
+    transform: scale(1.05); /* Aumento sutil de tamaño */
+  }
+
+  /* Estilo de las opciones */
+  option {
+    background-color: #292728; /* Fondo negro */
+    color: #f9f2e8; /* Texto blanco */
+    padding: 10px;
+    border: 2px solid #384ea1; /* Borde azul */
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Efecto hover en las opciones */
+  option:hover {
+    background-color: #ee6543; /* Fondo rojo */
+    color: #292728; /* Texto negro cuando se pasa el mouse */
+  }
+
+  /* Efecto al seleccionar opción */
+  option:checked {
+    background-color: #f8ae35; /* Fondo amarillo */
+    color: #292728; /* Texto negro cuando está seleccionado */
+  }
+
+.custom-button i {
+    margin-right: 0.5rem;
+}
+
+.custom-button:active {
+    background-color: #EF4444; 
+    color: #fff;
+    border-color: #EF4444;
+    transform: scale(0.9); 
+}
+
+/* Contenedor para centrar el botón */
+.button-container {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center;    /* Centrar verticalmente */
+  height: 80px;          /* Ocupa todo el alto de la ventana */
+}
+
+/* Ajustes al botón */
+.button-78 {
+  align-items: center;        /* Centrar el contenido verticalmente */
+  justify-content: center;    /* Centrar el contenido horizontalmente */
+  display: flex;              /* Necesario para centrar el texto */
+  appearance: none;
+  background-clip: padding-box;
+  background-color: initial;
+  background-image: none;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: Eina01, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;             /* Elimina espacio extra en la línea */
+  margin: 10px 0;             /* Espacio superior e inferior */
+  height: 50px;
+  outline: none;
+  overflow: visible;
+  padding: 10px 50px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: auto;
+  word-break: keep-all;
+  z-index: 0;
+}
+
+/* Otros estilos no se modifican */
+@media (min-width: 768px) {
+  .button-78 {
+    padding: 19px 32px;
+  }
+}
+
+.button-78:before,
+.button-78:after {
+  border-radius: 80px;
+}
+
+.button-78:before {
+  background-image: linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -2;
+}
+
+.button-78:after {
+  background-color: initial;
+  background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+  bottom: 4px;
+  content: "";
+  display: block;
+  left: 4px;
+  overflow: hidden;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  transition: all 100ms ease-out;
+  z-index: -1;
+}
+
+.button-78:hover:not(:disabled):before {
+  background: linear-gradient(92.83deg, rgb(255, 116, 38) 0%, rgb(249, 58, 19) 100%);
+}
+
+.button-78:hover:not(:disabled):after {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition-timing-function: ease-in;
+  opacity: 0;
+}
+
+.button-78:active:not(:disabled) {
+  color: #ccc;
+}
+
+.button-78:active:not(:disabled):before {
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+}
+
+.button-78:active:not(:disabled):after {
+  background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+  top: 4px;
+}
+
+.button-78:disabled {
+  cursor: default;
+  opacity: .24;
+}
+
+
+.option h2 {
+    color: #e46023;
+    font-size: 1rem; 
+}
+
+.option p {
+    font-size: 0.9rem; 
+}
+
+.right-section {
+    background-image: url('../images/imgExp/Fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    flex-grow: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Columnas en pantalla pequeña */
+    }
+
+    .left-section {
+        width: 100%;
+        min-width: 0; /* Quita el ancho mínimo */
+        padding: 10px;
+    }
+
+    .option {
+        width: 90%; /* Mayor anchura para pantallas pequeñas */
+        margin: 10px auto; /* Centrar opciones */
+    }
+
+    .custom-button {
+        padding: 0.4rem 0.8rem; /* Tamaño de botón más pequeño */
+        font-size: 0.9rem; /* Tamaño de texto más pequeño */
+    }
+
+    .right-section {
+        display: none; /* Oculta el fondo decorativo en móviles para mayor espacio */
+    }
+}
+
+@media (min-width: 769px) {
+    .container {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .left-section {
+        width: 33%;
+        padding-top: 50px; 
+        text-align: left; 
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    .right-section {
+        width: 67%;
+        padding: 20px;
+    }
+}
+
+  /* Estilo del input */
+  input[type="text"] {
+    background: linear-gradient(145deg, #292728, #384ea1); /* Gradiente de negro a azul */
+    color: #f9f2e8; /* Texto blanco suave */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 18px; /* Relleno moderado */
+    border: 2px solid #ee6543; /* Borde rojo */
+    border-radius: 25px; /* Bordes redondeados */
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(238, 101, 67, 0.7), 0 0 16px rgba(238, 101, 67, 0.3); /* Sombra suave de color rojo */
+    appearance: none; /* Eliminar la flecha predeterminada del select */
+  }
+
+  /* Estilo cuando el input tiene foco */
+  input[type="text"]:focus {
+    background: linear-gradient(145deg, #384ea1, #292728); /* Invertir gradiente al enfocar el input */
+    border-color: #f8ae35; /* Borde amarillo */
+    box-shadow: 0 0 18px rgba(248, 174, 53, 0.7), 0 0 28px rgba(248, 174, 53, 0.4); /* Efecto de neón amarillo */
+    transform: scale(1.05); /* Aumento sutil de tamaño */
+  }
+
+  /* Estilo para el texto del placeholder */
+  input[type="text"]::placeholder {
+    color: #f9f2e8; /* Color del texto del placeholder */
+    opacity: 0.8; /* Opacidad sutil */
+  }
+
+  /* Estilo de la validación */
+  input[type="text"]:invalid {
+    border-color: #ff6347; /* Borde rojo si la entrada no es válida */
+    box-shadow: 0 0 8px rgba(255, 99, 71, 0.7); /* Sombra roja cuando es inválido */
+  }
+
+  /* Estilo para el input al estar lleno y válido */
+  input[type="text"]:valid {
+    border-color: #f8ae35; /* Borde amarillo si es válido */
+  }
+
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datos de {{nombreMascota}}</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+<link rel="stylesheet" href="../static/css/styleshowExp.css">
+</head>
+<body>
+<div id="div1">
+    <br>
+    <div class="div-imagen">
+    <img src="{{ imageMascota_base64 }}" alt="Imagen de la mascota">
+    </div>
+    <br>
+    <h2>Expediente de</h2>
+    <h1>"{{nombreMascota}}"</h1>
+    <p class="titulo">Selecciona la informacion que quieres conocer</p>
+    <br>
+    <div class="conta">
+    <div class="option">
+    <img src="../static/images/imgShowExp/informacion.gif" alt="" width="65" height="65">
+      <p class="des">Informacion general</p>
+    <form action="/showExp" method="post">
+        <input value="{{idMascota}}" type="hidden" id="VetKey" name="VetKey" required>
+        <button class="custom-button"  type="submit">Conocer</button>
+    </form>
+    </div>
+    <div class="option">
+    <img src="../static/images/imgShowExp/latido-del-corazon.gif" alt="" width="65" height="65">
+      <p class="des">Historial medico</p>
+    <form action="/showExpHistorialMedico" method="post">
+        <input value="{{idMascota}}" type="hidden" id="VetKey" name="VetKey" required>
+        <button class="custom-button"  type="submit">Conocer</button>
+    </form>
+    </div>
+    <div class="option">
+    <img src="../static/images/imgShowExp/recepcion.gif" alt="" width="65" height="65">
+      <p class="des">Cita medica</p>
+    <form action="/showExpCitaMedica" method="post">
+        <input value="{{idMascota}}" type="hidden" id="VetKey" name="VetKey" required>
+        <button class="custom-button"  type="submit">Conocer</button>
+    </form>
+    </div>
+    <div class="option">
+    <img src="../static/images/imgShowExp/perfil.gif" alt="" width="65" height="65">
+      <p class="des">Propietario</p>
+    <form action="/showExpPropietario" method="post">
+        <input value="{{idMascota}}" type="hidden" id="VetKey" name="VetKey" required>
+        <button class="custom-button"  type="submit">Conocer</button>
+    </form>
+    </div>
+    </div>
+    <br>
+        <form action="/scannerExp" method="post">
+            <button class="custom-button" id="volver"  type="submit">Regresar</button>
+        </form>
+</div>
+
+<div id="div2">
+    <br><br><br><br><br>
+    <h1 class="sub-title"><span class="Redtext">Propietario</span><br>de mascota</h1>
+    <br><br>
+    <div class="container">
+        <p class="text">
+            <span class="label">DUI:</span>
+            <span class="value">{{dui}}</span>
+        </p>
+    </div>
+    <div class="container">
+        <p class="text">
+            <span class="label">Nombre Completo:</span>
+            <span class="value">{{nombrePropietario}}</span>
+        </p>
+    </div>
+    <div class="container">
+        <p class="text">
+            <span class="label">Teléfono:</span>
+            <span class="value">{{telefono}}</span>
+        </p>
+    </div>
+    <div class="container">
+        <p class="text">
+            <span class="label">Dirección:</span>
+            <span class="value">{{direccion}}</span>
+        </p>
+    </div>
+    <div class="container">
+        <p class="text">
+            <span class="label">Correo:</span>
+            <span class="value">{{correo}}</span>
+        </p>
+    </div>
+    <div class="container">
+        <p class="text">
+            <span class="label">Foto de Propietario:</span>
+            <img src="{{ imageProp_base64 }}" alt="Foto del propietario">
+        </p>
+    </div>
+</div>
+<img src="/static/images/logo.png" alt="logo" class="logo">
+<div class="chat-bubble" onclick="window.location.href='/chatbot'">
+    💬
+</div>
+</body>
+</html>

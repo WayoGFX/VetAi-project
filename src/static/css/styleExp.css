@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('styleVet_ai.css');
+/* BARRA DE LA IZQUIERDA ----------------*/
+/*---------------------------------------*/
+
+/* DISEÑO BODY Y SLIDE ----------------*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--blanco);
+    overflow: auto; /* Asegura que el body permita scroll */
+}
+
+::-webkit-scrollbar {
+    width: 18px;
+    height: 18px;
+    background: var(--grisOscuro)/*linear-gradient(45deg, #ff0066, #0099ff)*/;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease-in-out;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--blanco);
+    border-radius: 15px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--azul)/*linear-gradient(135deg, #ff0066, #6a00ff, #0099ff)*/;
+    border-radius: 15px;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--azul),/* #ff4d99 ,*/ var(--rojo));
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar:active {
+    background: #ff00cc;
+    transform: scale(0.95);
+}
+
+::-webkit-scrollbar-track:hover {
+    background: var(--blanco);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+}
+
+
+
+
+/*---------------------------------------*/
+
+/* BARRA DE LA IZQUIERDA ----------------*/
+.sidebar {
+    width: 38%;
+    height: 100vh; /* Altura completa de la ventana */
+    background-color: var(--rojo); /* Fondo del sidebar */
+    padding: 20px;
+    position: fixed; /* Mantiene el sidebar fijo en la izquierda */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea el contenido al centro */
+    justify-content: flex-start; /* Alinea el contenido en la parte superior */
+    text-align: center; /* Alinea el texto al centro */
+    overflow-y: auto; /* Agrega scroll si el contenido excede la altura */
+}
+
+.title {
+    margin-top: 130px;
+    margin-bottom: 30px; /* Espacio debajo del título */
+    animation: zoomIn 2s; /* Animación de zoom */
+}
+
+h1 {
+    color: var(--blanco); /* Color blanco */
+    margin: 0; /* Quitar margen */
+    line-height: 0.9; /* Ajusta la distancia entre líneas */
+    font-size: 55px;
+    font-weight: bold;
+}
+
+.textUp {
+    color: var(--negro); /* Color negro */
+    font-size: 87px; /* Tamaño grande */
+    display: block; /* Asegura que el span esté en una nueva línea */
+    margin-top: 10px; /* Distancia del salto de línea entre h1 y span */
+    margin-bottom: 50px;
+}
+
+p {
+    color: var(--blanco); /* Color blanco */
+    margin: 0; /* Quitar margen para alinear al top */
+    text-align: center; /* Alinea el texto al centro */
+    font-size: 18px;
+    font-weight:500;
+}
+/*---------------------------------------*/
+
+/* ESTILO DIV CAJAS ----------------*/
+.container-opcion {
+    background-color: var(--blanco); /* Fondo blanco */
+    padding: 20px;
+    padding-top: 45px;
+    padding-bottom: 55px;
+    margin-top: 20px; /* Espacio superior */
+    border-radius: 50px; /* Bordes redondeados */
+    width: 50%; /* Ancho completo del contenedor */
+    animation: zoomIn 2s; /* Animación de zoom */
+}
+
+.container-opcion p{
+    color: var(--negro);
+    font-size: 15px;
+    padding: 20px 20px;
+    font-weight: 400;
+}
+
+.icon {
+    width: 70px; /* Ancho de la imagen */
+    height: auto; /* Mantiene la proporción */
+}
+
+
+/* Título de la opción */
+.opcionTitle {
+    margin: 10px 0;
+    font-size: 18px;
+    color: var(--rojo);
+    font-weight: 600;
+}
+
+.button-container {
+    display: flex; /* Flexbox para alinear botones */
+    justify-content: center; /* Centra los botones */
+    animation: zoomIn 2s; /* Animación de zoom */
+}
+
+.icon-button, .hablar-button {
+    padding: 15px 20px; /* Espacio interno de los botones */
+    margin: 5px; /* Margen entre botones */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    background-color: var(--blanco); /* Fondo del botón */
+    border: 1px solid var(--rojo);
+    border-radius: 20px; /* Bordes redondeados */
+    color: var(--rojo); /* Color del texto */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+
+.icon-button:hover, .hablar-button:hover {
+    background-color: var(--rojo);
+color: var(--grisClaro);
+
+}
+/*---------------------------------------*/
+
+/* DISEÑO DE INPUT ----------------*/
+.input {
+    width: 50%; /* Ancho completo del input */
+    padding: 16px 20px; /* Espacio interno */
+    margin: 10px 0; /* Espacio arriba y abajo */
+    margin-bottom: 25px;
+    border: 1px solid var(--rojo);
+    background-color: var(--grisClaro); /* Borde */
+    border-radius: 26px; /* Bordes redondeados */
+    text-align: center;
+    font-size: 15px;
+    color: var(--negro);
+    font-weight: 500;
+}
+/*---------------------------------------*/
+
+/* DISEÑO DE SELECTION ----------------*/
+.select-custom {
+    width: 60%; /* Ajusta este valor según tus necesidades */
+    padding: 16px 20px; /* Espacio interno */
+    margin: 10px 0; /* Espacio arriba y abajo */
+    border: 1px solid var(--rojo);
+    background-color: var(--grisClaro); /* Fondo */
+    border-radius: 26px; /* Bordes redondeados */
+    color: var(--negro);
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+}
+/*---------------------------------------*/
+
+/* Diseño de la imagen de previsualización */
+.image-preview {
+    width: 270px; /* Ancho fijo para todas las imágenes */
+    height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+    object-fit: cover; /* Asegura que la imagen se ajuste bien al contenedor sin perder calidad */
+    margin: 5px 0;
+    border-radius: 35px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para un mejor efecto visual */
+}
+
+/* Ocultar el input original */
+.inputIMG {
+    display: none;
+}
+
+/* Estilo del botón de carga personalizada */
+.custom-file-upload {
+    display: inline-block;
+    padding: 16px 20px;
+    margin: 10px 0;
+    border: 1px solid var(--rojo);
+    background-color: var(--grisClaro);
+    color: var(--rojo);
+    border-radius: 26px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: var(--rojo);
+    color: var(--grisClaro);
+}
+/*---------------------------------------*/
+
+/* DISEÑO DE CHECKBOX ----------------*/
+.container-opcion label {
+
+    font-size: 15px;
+    color: var(--negro);
+}
+
+.container-opcion input[type="checkbox"] {
+    display: inline-block; /* Muestra el checkbox */
+    width: 10px; /* Ancho del checkbox */
+    height: 10px; /* Altura del checkbox */
+    margin-right: 10px; /* Espacio entre el checkbox y el texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
+}
+
+/* Cambia el color del checkbox cuando está seleccionado */
+.container-opcion input[type="checkbox"]:checked {
+    background-color: var(--rojo); /* Cambia el fondo a rojo */
+}
+
+/* Para dar un efecto de cuadro rojo */
+.container-opcion input[type="checkbox"]:checked::after {
+    content: '';
+    display: inline-block;
+    width: 11.5px; /* Ancho del checkbox */
+    height: 11.5px; /* Altura del checkbox */
+    background-color: var(--rojo); /* Color de fondo rojo */
+    position: relative;
+    top: -1px; /* Ajusta la posición */
+    left: -1px; /* Ajusta la posición */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+}
+/*---------------------------------------*/
+
+/* DISEÑO DE DUI ----------------*/
+/* Ocultar el video inicialmente */
+#video {
+    margin: 0 auto; /* Centra el video horizontalmente */
+    border-radius: 50px; /* Bordes redondeados para el video, opcional */
+    width: 100%;
+    background-color: var(--grisClaro);
+}
+/*---------------------------------------*/
+
+/* DISEÑO DE LOGO ----------------*/
+.logo {
+    position: fixed; /* Fija la imagen en la parte superior derecha */
+    top: 73px; /* Margen superior */
+    right: 105px; /* Margen derecho */
+    width: 130px; /* Ajusta el tamaño según sea necesario */
+    height: auto; /* Mantiene la proporción */
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+/*---------------------------------------*/
+
+/* DISEÑO DE SLIDE ----------------*/
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Asegura que el slider esté en el fondo */
+}
+
+.slides {
+    display: flex;
+    transition: opacity 1s ease-in-out;
+}
+
+.slides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    position: absolute; /* Para superponer las imágenes */
+    transition: opacity 1s ease-in-out;
+}
+
+.slides img:first-child {
+    opacity: 1; /* Mostrar la primera imagen */
+}
+/*---------------------------------------*/
+
+
+
+@keyframes zoomIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  canvas {
+    border-radius: 10px;
+  }
+
+
+/* Media query para dispositivos móviles */
+@media (max-width: 1040px) {
+    .sidebar {
+        width: 100%; /* Ancho completo en móviles */
+        overflow-y: auto; /* Asegura que el scroll funcione si el contenido excede la altura */
+    }
+
+    .logo{
+        width: 80px; /* Ajusta el tamaño según sea necesario */
+        top: 53px; /* Margen superior */
+        right: 40px; /* Margen derecho */
+    }
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 445px) {
+    .sidebar {
+        padding: 5px; /* Reducir el padding para pantallas pequeñas */
+        justify-content: flex-start; /* Mantiene el contenido en la parte superior para permitir scroll */
+        text-align: center; /* Asegura que el texto esté centrado */
+    }
+    h1 {
+        font-size: 36px; /* Ajustar el tamaño de la fuente en móviles */
+    }
+
+    .textUp {
+        font-size: 48px; /* Ajustar el tamaño de la fuente en móviles */
+        margin-bottom: 30px; /* Reducir el margen inferior */
+    }
+
+    p {
+        font-size: 16px; /* Ajustar el tamaño de la fuente en móviles */
+    }
+
+}

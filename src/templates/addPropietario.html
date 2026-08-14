@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseño expediente</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+    <link rel="stylesheet" href="/static/css/styleProp.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/script.js" defer></script>
+    <script src="/static/js/hablar.js"></script>
+    <script src="/static/js/tesseract.min.js"></script>
+    <script src="/static/js/duiDetector.js" defer></script>
+</head>
+<body>
+    <div class="slider">
+        <div class="slides">
+            <img src="/static/images/imgSlide/slide1/slide1.png" alt="Slide 1">
+            <img src="/static/images/imgSlide/slide1/slide3.png" alt="Slide 2">
+            <img src="/static/images/imgSlide/slide1/slide2.png" alt="Slide 3">
+            <img src="/static/images/imgSlide/slide1/slide4.png" alt="Slide 4">
+            <img src="/static/images/imgSlide/slide1/slide5.png" alt="Slide 5">
+        </div>
+        <div class="overlay"></div>
+    </div>
+    
+    <form action="/uploadProp" method="post" enctype="multipart/form-data">
+        <div class="sidebar">
+            <div class="title">
+                <h1>Expediente de<br><span class="textUp">propietario</span></h1>
+                <p>Completa todos los campos</p>
+            </div>
+            <div class="button-container"> <!--
+                <button class="icon-button" role="button" type="button" onclick="hablarInformacion()">Hablar expediente</button>
+                <button class="hablar-button" role="button" type="button" onclick="detenerHablar()">Detener</button> -->
+            </div>
+            
+            <!--    APARTADO DE DIV DE CONTENIDO -->
+
+            <div class="container-opcion">
+                <img src="/static/images/imgExp/documento.gif" alt="Icono" class="icon">
+                <h2 class="opcionTitle" for="duiExp">DUI Propietario</h2>
+            
+                <video id="video" width="300" height="200" autoplay></video>
+                <br>
+                <button id="toggleCamera" class="hablar-button">Encender cámara</button>
+                <button id="capture" class="hablar-button">Capturar</button>
+                <canvas id="canvas" style="display:none;"></canvas>
+                <input type="text" id="duiExp" name="duiExp" class="input" placeholder="Escanea tu número de DUI" pattern="^\d{8}-\d{1}$" required maxlength="10">
+                <div id="progress" style="display:none;">
+                    <div id="progress-bar"></div>
+                </div>
+                <div id="notification"></div>
+                <button class="hablar-button" type="button" onclick="hablarCampo('duiExp', 'Dui del propietario')">Hablar</button>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgProp/person.gif" alt="Imagen del propietario" class="icon">
+                <h2 class="opcionTitle" for="nombreProp">Nombre Completo</h2>
+                <input type="text" class="input" id="nombreProp" name="nombreProp" placeholder="Ej: Jaime Hernández" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('nombreProp')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('nombreProp', 'Nombre Completo')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgProp/camera.gif" alt="Icono" class="icon">
+                <h2 class="opcionTitle">Foto del propietario</h2>
+                <img id="previewImage" src="/imgExp/Fondo.jpg" alt="foto ingresada" class="image-preview">
+                <br>
+                <input type="file" id="imageProp" name="imageProp" required class="inputIMG" accept="image/*">
+                <label for="imageProp" class="custom-file-upload">Seleccionar archivo</label><br>
+                
+                <!-- Botones para manejar la cámara -->
+                <button type="button" id="openCamera" class="custom-file-upload">Abrir Cámara</button>
+                <button type="button" id="stopCamera" class="custom-file-upload" style="display: none;">Apagar Cámara</button><br>
+                
+                <!-- Contenedor para la vista de la cámara -->
+                <div id="cameraContainer" style="display:none;">
+                    <video id="cameraStream" autoplay class="image-preview"></video><br>
+                    <button id="capturePhoto" class="custom-file-upload">Tomar Foto</button>
+                </div>
+            </div>
+            
+            <script>
+                const imageInput = document.getElementById('imageProp');
+                const previewImage = document.getElementById('previewImage');
+                const openCameraButton = document.getElementById('openCamera');
+                const stopCameraButton = document.getElementById('stopCamera');
+                const cameraContainer = document.getElementById('cameraContainer');
+                const cameraStream = document.getElementById('cameraStream');
+                const capturePhotoButton = document.getElementById('capturePhoto');
+                
+                let videoStream;
+                
+                // Previsualización de la imagen subida
+                imageInput.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImage.src = e.target.result; // Muestra la imagen cargada
+                        };
+                        reader.readAsDataURL(file); // Lee la imagen como URL de datos
+                    } else {
+                        previewImage.src = '/imgExp/Fondo.jpg'; // Imagen por defecto
+                    }
+                });
+                
+                // Abrir la cámara
+                openCameraButton.addEventListener('click', async function(event) {
+                    event.preventDefault(); // Evita la validación del campo requerido
+                    cameraContainer.style.display = 'block';
+                    stopCameraButton.style.display = 'inline-block'; // Mostrar botón de apagar cámara
+                    try {
+                        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                        cameraStream.srcObject = videoStream;
+                    } catch (error) {
+                        console.error('Error al acceder a la cámara:', error);
+                        alert('No se pudo acceder a la cámara.');
+                    }
+                });
+                
+                // Capturar foto desde la cámara
+                capturePhotoButton.addEventListener('click', function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = cameraStream.videoWidth;
+                    canvas.height = cameraStream.videoHeight;
+                    const context = canvas.getContext('2d');
+                    context.drawImage(cameraStream, 0, 0, canvas.width, canvas.height);
+                    const dataURL = canvas.toDataURL('image/png');
+                    
+                    // Actualizar la previsualización
+                    previewImage.src = dataURL;
+            
+                    // Convertir el dataURL a un Blob y asignarlo al input
+                    const blob = dataURLToBlob(dataURL);
+                    const file = new File([blob], 'captured-image.png', { type: 'image/png' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    imageInput.files = dataTransfer.files;
+            
+                    stopCamera(); // Detener la cámara después de capturar la foto
+                });
+                
+                // Apagar la cámara
+                stopCameraButton.addEventListener('click', function() {
+                    stopCamera();
+                });
+                
+                function stopCamera() {
+                    if (videoStream) {
+                        videoStream.getTracks().forEach(track => track.stop());
+                        videoStream = null;
+                    }
+                    cameraContainer.style.display = 'none';
+                    stopCameraButton.style.display = 'none';
+                }
+            
+                function dataURLToBlob(dataURL) {
+                    const byteString = atob(dataURL.split(',')[1]);
+                    const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+                    return new Blob([ab], { type: mimeString });
+                }
+            </script>
+            <div class="container-opcion">
+                <img src="../static/images/imgProp/phone.gif" alt="Imagen del teléfono" class="icon">
+                <h2 class="opcionTitle" for="telefono">Teléfono</h2>
+                <input type="tel" id="telefono" name="telefono" maxlength="8" required class="input" placeholder="Ej: 12345678" />
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('telefono')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('telefono', 'Teléfono')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="/static/images/imgProp/direction.gif" alt="Imagen de la dirección" class="icon">
+                <h2 class="opcionTitle" for="direccion">Dirección</h2>
+                <input type="text" class="input" id="direccion" name="direccion" placeholder="Departamento y municipio" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('direccion')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('direccion', 'Dirección')">Hablar</button>
+                </div>
+            </div>
+            <div class="container-opcion">
+                <img src="../static/images/imgProp/email.gif" alt="Imagen del correo" class="icon">
+                <h2 class="opcionTitle" for="correo">Correo:</h2>
+                <input type="email" class="input" id="correo" name="correo" placeholder="Ejemplo@gmail.com" required>
+                <div class="button-container">
+                    <button type="button" class="icon-button" onclick="reconocerVoz('correo')">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="hablar-button" type="button" onclick="hablarCampo('correo', 'Correo')">Hablar</button>
+                </div>
+            </div>
+            <br><br>
+            <div class="button-container">
+                <button class="hablar-button" type="submit">Enviar</button>
+            </div>
+            <br><br>
+        </div>
+    </form>
+        <img src="/static/images/imgExp/logo.png" alt="logo" class="logo">
+        <script>
+            let index = 0;
+            const slides = document.querySelectorAll('.slides img'); // Selecciona todas las imágenes
+            const totalSlides = slides.length;
+            
+            // Inicializa la primera imagen
+            slides[index].style.opacity = 1; // Muestra la primera imagen
+            
+            function showNextSlide() {
+                slides[index].style.opacity = 0; // Oculta la imagen actual
+                index = (index + 1) % totalSlides; // Calcula el índice de la siguiente imagen
+                slides[index].style.opacity = 1; // Muestra la siguiente imagen
+            }
+            
+            setInterval(showNextSlide, 3000); // Cambia cada 3 segundos
+            </script>
+</body>
+</html>

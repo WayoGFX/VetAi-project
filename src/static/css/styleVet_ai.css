@@ -1,0 +1,29 @@
+
+/*COLOR OFICIAL VET AI*/
+:root{
+    --rojo: #ee6543;
+    --rojoFuerte: #f5a693;
+    --azul: #384ea1;
+    --azulR: #ee6543;
+    --azulFuerte: #70a5ff;
+    --amarillo:  #f8ae35;
+    --negro: #292728;
+    --blanco:  white/*#f8f1e7*/;
+    --grisClaro: #ebebeb/*#e5dfd1*/;
+    --grisOscuro:#b7b1a5 ;
+}
+
+
+/* OTRA PALETA
+:root{
+    --rojo: #a33139;
+    --azul: #094f8b;
+    --azulR: #094f8b;
+    --azulFuerte: #1e71ff;
+    --amarillo:  #f8ae35;
+    --negro: #292728;
+    --blanco: #ffffff;
+    --grisClaro: #ebebeb;
+    --grisOscuro:#bababa;
+}
+*/

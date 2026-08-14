@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap');
+@import url('styleVet_ai.css');
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    overflow: hidden; /* Evitar el desbordamiento */
+
+
+    animation: epicEntrance 3s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+
+
+canvas {
+    border-radius: 10px;
+  }
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; /* Asegura que el slider esté en el fondo */
+}
+
+.slides {
+    display: flex;
+    transition: opacity 1s ease-in-out;
+}
+
+.slides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    position: absolute; /* Para superponer las imágenes */
+    transition: opacity 1s ease-in-out;
+}
+
+
+
+.slides img:first-child {
+    opacity: 1; /* Mostrar la primera imagen */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f1e7ce; /* Fondo blanco semitransparente */
+    z-index: 0; /* Asegura que la capa de fondo esté encima del slider */
+}
+
+/* Animación de entrada épica */
+@keyframes epicEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(-100vh) scale(0.5) rotate(-360deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(10vh) scale(1.2) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+}
+
+.imagen-principal {
+    max-width: 200px; /* Ajusta el tamaño según sea necesario */
+    margin-bottom: -40px;
+    color: var(--azul);
+}
+
+.content {
+    text-align: center; /* Centra el texto */
+}
+
+h1 {
+    color: var(--rojo);
+    margin: 0;
+    font-size: 40px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+.mensaje-azul {
+    color: var(--azul);
+    font-size: 15px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Espacio entre el texto y los botones */
+}
+
+.custom-button {
+    border: none;
+    border-radius: 9999px;
+    padding: 0.6rem 1.3rem;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s, transform 0.1s;
+    cursor: pointer;
+    margin: 0 10px; /* Espacio entre botones */
+}
+
+.yes-button {
+    background-color: var(--azul);
+    color: var(--blanco);
+}
+
+.yes-button:hover {
+    background-color: var(--grisClaro);
+    color: var(--azul);
+}
+
+.no-button {
+    background-color: var(--rojo);
+    color: var(--blanco);
+}
+
+.no-button:hover {
+    background-color: var(--grisClaro);
+    color: var(--rojo);
+}
+
+.custom-button:active {
+    transform: scale(0.9);
+}

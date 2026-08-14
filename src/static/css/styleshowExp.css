@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('styleVet_ai.css');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: var(--blanco);
+    flex-wrap: wrap;
+}
+
+/* DISEÑO DE chatbot burbuja ----------------*/
+.chat-bubble {
+    position: fixed;
+    bottom: 28px; /* Distancia desde la parte inferior */
+    right: 65px; /* Distancia desde la derecha */
+    background-color: var(--azul);
+    color: var(--blanco);
+    border-radius: 50%;
+    width: 60px; /* Tamaño de la burbuja */
+    height: 60px; /* Tamaño de la burbuja */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px var(--grisClaro);
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+    transition: transform 0.3s;
+}
+
+.chat-bubble:hover {
+    transform: scale(1.1); /* Efecto de aumento al pasar el mouse */
+    transition: 0.4s;
+    background-color: var(--rojo);
+}
+/*---------------------------------------*/
+
+/* Animación de entrada épica */
+@keyframes epicEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(-100vh) scale(0.5) rotate(-360deg);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(10vh) scale(1.2) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+}
+
+/* Aplica la animación a los divs principales */
+#div1,
+#div2 {
+    animation: epicEntrance 2s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+
+/* Estilo para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 18px;
+    height: 18px; /* Para el scroll horizontal */
+    background: var(--rojo)/*linear-gradient(45deg, #ff0066, #0099ff)*/; /* Fondo dinámico de color */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease-in-out;
+}
+
+/* Estilo para el track de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+    background: var(--blanco);
+    border-radius: 15px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease-in-out;
+}
+
+/* Estilo para el pulgar (thumb) de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background: var(--rojo);
+    border-radius: 15px;
+    border: 3px solid #fff; /* Borde blanco más grueso para un efecto más limpio */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: background 0.5s ease, transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Efecto animado cuando el usuario pasa el ratón sobre el pulgar */
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--rojo), var(--azul)); /* Cambio de gradiente para destacar */
+    transform: scale(1.15); /* Aumento sutil en el tamaño */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Efecto al deslizar la barra de desplazamiento */
+::-webkit-scrollbar:active {
+    background: #ff00cc; /* Cambiar a un color intenso al hacer clic */
+    transform: scale(0.95);
+}
+
+/* Efecto de animación suave en el track al desplazarse */
+::-webkit-scrollbar-track:hover {
+    background: var(--grisClaro);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+}
+
+#div1 {
+    width: 36%;
+    background-color: var(--azulR);
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+.conta {
+    margin-left: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+    gap: 10px;
+}
+
+.option {
+    background-color: var(--blanco);
+    color: var(--negro);
+    padding: 20px;
+    border-radius: 38px;
+    text-align: center;
+    margin-bottom: 10px;
+    width: 68%;
+}
+
+.des {
+    color: var(--rojo);
+}
+
+.custom-button {
+    background-color: var(--negro);
+    border: 2px solid var(--rojo); 
+    color: var(--blanco); 
+    border-radius: 9999px; 
+    padding: 0.6rem 1.3rem; 
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.1s;
+    cursor: pointer;
+}
+
+.custom-button i {
+    margin-right: 0.5rem;
+}
+
+.custom-button:active {
+    background-color: var(--rojo); 
+    color: var(--blanco);
+    border-color: var(--grisClaro);
+    transform: scale(0.9); 
+}
+
+.custom-button {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.custom-button:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    font-weight: bold;
+    color: var(--blanco);
+    font-size: 30px;
+    margin: 10px 0;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-weight: bold;
+    color: var(--negro);
+    font-size: 50px;
+    margin: -35px 0;
+    margin-bottom: 20px;
+
+}
+
+
+.titulo {
+    color: var(--blanco);
+}
+
+.div-imagen {
+    width: 200px;
+    overflow: hidden;
+    background-color: var(--blanco);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border:12px solid var(--blanco);
+}
+
+.div-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#div2 {
+    width: 54%;
+    margin-left: 40%;
+    background-color: var(--blanco);
+    padding: 0px 30px;
+}
+
+.sub-title {
+    font-weight: bold;
+    color: var(--negro);
+    font-size: 60px;
+    margin-top: -88px;
+    line-height: 1; /* Ajusta el valor según lo que necesites */
+}
+
+.Redtext{
+    color: var(--rojo);
+    font-size: 48px;
+}
+
+/* DISEÑO DE LOGO ----------------*/
+.logo {
+    position: fixed; /* Fija la imagen en la parte superior derecha */
+    top: 73px; /* Margen superior */
+    right: 105px; /* Margen derecho */
+    width: 130px; /* Ajusta el tamaño según sea necesario */
+    height: auto; /* Mantiene la proporción */
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+/*---------------------------------------*/
+
+.container {
+    background-color: var(--grisClaro);
+    border-radius: 20px;
+    padding: 10px 15px; /* Reduce el padding para hacer el contenedor más compacto */
+    margin: 20px auto; /* Centra el contenedor horizontalmente */
+    display: flex;
+    flex-direction: column; /* Mantén la dirección en columna */
+    max-width: 600px; /* Establece un ancho máximo para el contenedor */
+    width: 95%; /* Asegúrate de que ocupe un porcentaje razonable del ancho disponible */
+    overflow: hidden; /* Evita que el contenido se desborde */
+}
+
+.container img {
+    max-width: 50%; /* Ajusta el ancho máximo de la imagen al 100% del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 10px; /* Aplica bordes redondeados a la imagen */
+    margin-right: 10px;
+}
+
+.text {
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    overflow-wrap: break-word; /* Permite que las palabras largas se dividan */
+}
+
+.label {
+    color: var(--rojo); 
+    font-weight: bold; 
+    font-size: 18px;
+    margin-right: 35px;
+    margin-left: 10px; 
+}
+
+.value {
+    color: var(--negro); 
+    font-size: 18px;
+    margin-right: 20px; 
+    text-align: justify;
+}
+
+.listOrder{
+    display: flex;
+    flex-direction: column; /* Alineación vertical */
+    justify-content: flex-start;
+    align-items: flex-end; /* Alineación a la derecha */
+    margin-right: 12px;
+    font-size: 18px;
+    padding: 0;
+    list-style: none;
+}
+.listOrder li {
+    text-align: left; /* Alinea el texto a la izquierda */
+    margin-bottom: 5px; /* Espacio entre elementos */
+}
+
+#volver{
+    justify-content: center;
+    margin-left: -25px;
+}
+
+@media only screen and (max-width: 890px) {
+    #div1,
+    #div2{
+        width: 100%;
+        margin-left: 0; 
+        position: static; 
+   }
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 1040px) {
+    .logo{
+        width: 75px; /* Ajusta el tamaño según sea necesario */
+        top: 40px; /* Margen superior */
+        right: 15px; /* Margen derecho */
+        z-index: 1;
+    }
+
+    #volver{
+        justify-content: center;
+        margin-left: 0px;
+    }
+    .chat-bubble {
+        bottom: 20px; /* Distancia desde la parte inferior */
+        right: 20px; /* Distancia desde la derecha */
+        width: 50px; /* Tamaño de la burbuja */
+        height: 50px; /* Tamaño de la burbuja */
+        transition: transform 0.3s;
+    }
+}
+

@@ -1,0 +1,64 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCANNER EXPEDIENTE</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../static/images/logvetai.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../static/js/qrCode.min.js"></script>
+  <link rel="stylesheet" href="../static/css/styleqr.css">
+</head>
+<body>
+  <div class="slider">
+    <div class="slides">
+        <img src="/static/images/imgSlide/slide2/slide1.png" alt="Slide 1">
+        <img src="/static/images/imgSlide/slide2/slide2.png" alt="Slide 2">
+        <img src="/static/images/imgSlide/slide2/slide5.png" alt="Slide 3">
+        <img src="/static/images/imgSlide/slide2/slide4.png" alt="Slide 4">
+        <img src="/static/images/imgSlide/slide2/slide3.png" alt="Slide 5">
+    </div>
+    <div class="overlay"></div>
+</div>
+
+
+
+  <div class="container">
+    <div class="logo">
+      <img src="../static/images/imgScanner/logo.png" alt="">
+      <p>Escanea el QR de tu mascota</p>
+    </div>
+    <div class="scanner">
+    <a id="btn-scan-qr" href="#">
+      <img src="../static/images/imgScanner/codigo.gif" alt="">
+      </a>
+      <canvas hidden id="qr-canvas" class="img-fluid"></canvas>
+    </div>
+    <div class="buttons">
+      <button class="start" class="btn btn-success btn-sm" onclick="encenderCamara()">Encender cámara</button>
+      <button class="stop" class="btn btn-danger btn-sm" onclick="cerrarCamara()">Apagar cámara</button>
+    </div>
+    <audio id="audioScaner" src="../static/images/imgScanner/sonido.mp3"></audio>
+    
+    <form action="/showExp" method="post" id="qr-form" class="mt-4">
+          <input type="hidden" id="VetKey" name="VetKey" required>
+          <button type="button" id="submit-btn" class="submit" class="btn btn-primary w-100">Enviar</button>
+    </form>
+  </div>
+  <script src="../static/js/index.js"></script>
+  <img src="/static/images/logo.png" alt="logoVet" class="logoVet">
+  <script>
+    let index = 0;
+    const slides = document.querySelectorAll('.slides img');
+    const totalSlides = slides.length;
+
+    function showNextSlide() {
+        slides[index].style.opacity = 0; // Ocultar la imagen actual
+        index = (index + 1) % totalSlides; // Incrementar el índice
+        slides[index].style.opacity = 1; // Mostrar la siguiente imagen
+    }
+
+    setInterval(showNextSlide, 3000); // Cambiar cada 3 segundos
+</script>
+</body>
+</html>
